@@ -7,7 +7,11 @@
       <li></li>
     </ul>
     <div class="flex flex-wrap">
-      <div class="w-1/5" v-for="user in userInfoList" :key="user.login.uuid">
+      <div
+        class="w-1/2 sm:w-1/3 md:w-1/4 xl:w-1/6"
+        v-for="user in userInfoList"
+        :key="user.login.uuid"
+      >
         <Card :user="user" class="mr-3 mb-3" />
       </div>
     </div>

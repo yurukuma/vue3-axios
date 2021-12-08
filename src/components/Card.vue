@@ -20,19 +20,21 @@
       <address class="flex items-center border-b border-gray-200">
         <a
           :href="`mailto:${user.email}`"
-          class="py-2 px-5 flex-1 border-r border-gray-200"
+          class="hover:bg-yellow-100 hover:fill-current py-2 px-5 flex-1 border-r border-gray-200"
           ><Icon
             name="mail"
-            color="#efefef"
             width="22px"
             height="22px"
-            class="mx-auto"
+            class="mail-test mx-auto"
+            color="#ffa230"
           />
         </a>
-        <a :href="`mailto:${user.email}`" class="py-2 px-5 flex-1"
+        <a
+          :href="`tel:${user.phone}`"
+          class="hover:bg-green-100 py-2 px-5 flex-1"
           ><Icon
             name="phone"
-            color="#efefef"
+            color="#00f297"
             width="22px"
             height="22px"
             class="mx-auto"
@@ -40,7 +42,7 @@
         </a>
       </address>
       <button
-        class="text-white bg-green-500 py-2 w-full rounded-bl-lg rounded-br-lg"
+        class="hover:bg-blue-900 text-white bg-blue-800 py-2 w-full rounded-bl-lg rounded-br-lg"
       >
         View Details
       </button>
@@ -69,7 +71,8 @@ export default {
 <style lang="postcss">
 @layer components {
   .card {
-    @apply rounded-lg shadow text-center;
+    @apply rounded-lg text-center pt-3;
+    box-shadow: 0 2px 6px 0 rgb(0 0 0 / 10%), 0 0 4px -1px rgb(0 0 0 / 10%);
   }
   .card-header {
     @apply relative mb-3;

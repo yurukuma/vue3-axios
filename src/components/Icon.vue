@@ -19,17 +19,14 @@ export default {
       type: String,
       required: true,
     },
-
     color: {
       type: String,
-      // default: "currentColor",
+      default: "currentColor",
     },
-
     width: {
       type: String,
       default: "18px",
     },
-
     height: {
       type: String,
       default: "18px",
@@ -38,9 +35,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="postcss">
 .icon {
-  vertical-align: middle;
-  overflow: hidden;
+  @apply align-middle overflow-hidden;
 }
 </style>
