@@ -25,20 +25,14 @@
             name="mail"
             width="22px"
             height="22px"
-            class="mail-test mx-auto"
+            class="mx-auto"
             color="#ffa230"
           />
         </a>
         <a
           :href="`tel:${user.phone}`"
           class="hover:bg-green-100 py-2 px-5 flex-1"
-          ><Icon
-            name="phone"
-            color="#00f297"
-            width="22px"
-            height="22px"
-            class="mx-auto"
-          />
+          ><Icon name="phone" width="22px" height="22px" class="mx-auto" />
         </a>
       </address>
       <button
@@ -53,6 +47,7 @@
 <script>
 import Icon from "@/components/Icon.vue";
 export default {
+  name: "Card",
   components: {
     Icon,
   },

@@ -2,7 +2,7 @@
   <svg
     class="icon"
     :style="{
-      fill: color,
+      '--fill': color,
       width: width,
       height: height,
     }"
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "icon",
+  name: "Icon",
   props: {
     name: {
       type: String,
@@ -21,7 +21,7 @@ export default {
     },
     color: {
       type: String,
-      default: "currentColor",
+      // default: "currentColor",
     },
     width: {
       type: String,
@@ -38,5 +38,6 @@ export default {
 <style lang="postcss">
 .icon {
   @apply align-middle overflow-hidden;
+  fill: var(--fill);
 }
 </style>
