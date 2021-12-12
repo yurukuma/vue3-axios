@@ -27,14 +27,18 @@
           <Icon name="mail" width="22px" height="22px" color="#373737" />
           <span>{{ user.email }}</span>
         </a>
-        <a :href="`tel:${user.phone}`" class="w-3/6">
-          <Icon name="phone" width="22px" height="22px" />
+        <a
+          :href="`tel:${user.phone}`"
+          class="w-3/6 phone hover:underline hover:text-green-400"
+        >
+          <Icon name="phone" width="22px" height="22px" color="#373737" />
           <span>{{ user.phone }}</span>
         </a>
       </address>
       <div class="flex-1">
         <button
           class="hover:bg-blue-900 hover:text-white rounded-md text-blue-800 border border-blue-800 p-3"
+          @click="openModal(user)"
         >
           View Details
         </button>
@@ -53,9 +57,16 @@ export default {
     userList: {
       type: Array,
     },
-    // userData: {
-    //   type: Array,
-    // },
+  },
+  emits: ["openModal", "modalContext"],
+  setup(props, context) {
+    const openModal = (data) => {
+      context.emit("openModal");
+      context.emit("modalContext", data);
+    };
+    return {
+      openModal,
+    };
   },
 };
 </script>
@@ -73,5 +84,8 @@ export default {
 }
 .mail:hover .icon {
   fill: #ffa230;
+}
+.phone:hover .icon {
+  fill: #33b864;
 }
 </style>
