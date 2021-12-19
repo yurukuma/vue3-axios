@@ -18,14 +18,28 @@
       </li>
     </ul>
     <!-- TODO:resolve 資料render速度不一 -->
-    <template v-if="gotUserData">
-      <component
-        :is="currentComponent"
-        :userList="userInfoList"
-        @openModal="toggleModal"
-        @modalContext="modalContext"
-      />
-    </template>
+    <!-- <template v-if="gotUserData"> -->
+    <component
+      :is="currentComponent"
+      :userList="userInfoList"
+      @openModal="toggleModal"
+      @modalContext="modalContext"
+    />
+    <!-- </template> -->
+    <Pagination
+      class="mt-4"
+      :total="total"
+      :perPage="perPage"
+      :currentPage="currentPage"
+      @setPage="directPage"
+    />
+    <!-- <PaginationTest
+      class="mt-4"
+      :total="total"
+      :perPage="perPage"
+      :currentPage="currentPage"
+      @setPage="directPage"
+    /> -->
     <Teleport to="#app" v-if="isModalOpen">
       <Modal @hide="toggleModal">
         <template #context>
@@ -66,7 +80,7 @@
                 >
               </div>
               <div>
-                <span>DOB: </span
+                <span>Birthday: </span
                 ><span>{{ convertToDateString(modalData.dob.date) }}</span>
               </div>
             </div>
@@ -74,6 +88,8 @@
         </template>
       </Modal>
     </Teleport>
+    <!-- overlay -->
+    <!-- TODO:extract component -->
     <div
       v-show="isModalOpen"
       class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-60"
@@ -86,10 +102,13 @@
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
 import { ref, onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
+// import { useRouter, useRoute } from "vue-router";
 import UserList from "@/components/UserList.vue";
 import Icon from "@/components/Icon.vue";
 import CardContainer from "@/components/Home/CardContainer.vue";
 import Modal from "@/components/Modal.vue";
+import Pagination from "@/components/Pagination.vue";
 
 // services
 import { getUser } from "@/services/UserInfo.js";
@@ -105,17 +124,22 @@ export default {
     CardContainer,
     Icon,
     Modal,
+    Pagination,
   },
   setup() {
     let userInfoList = ref([]);
-    const count = 6;
     let currentComponent = ref("CardContainer");
     let gotUserData = ref(false);
     let isModalOpen = ref(false);
     let modalData = ref({});
+    const total = 3010; //資料總數3010
+    const perPage = 30;
+    let currentPage = ref(1); // 當前頁碼
+    const router = useRouter();
+    // const route = useRoute();
     // call api get data
     const getUserInfo = () => {
-      getUser(count)
+      getUser(perPage)
         .then((res) => {
           userInfoList.value = res;
           gotUserData.value = true;
@@ -134,11 +158,15 @@ export default {
     const modalContext = (data) => {
       modalData.value = data;
     };
+    const directPage = (pageNum) => {
+      currentPage.value = pageNum;
+    };
     // computed
     const isCardMode = computed(() => {
       return currentComponent.value === "CardContainer";
     });
     onMounted(() => {
+      router.push({ name: "Home", query: { page: currentPage.value } });
       getUserInfo();
     });
     return {
@@ -152,6 +180,10 @@ export default {
       modalData,
       toggleModal,
       convertToDateString,
+      currentPage,
+      perPage,
+      total,
+      directPage,
     };
   },
 };

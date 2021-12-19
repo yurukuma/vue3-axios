@@ -11,6 +11,12 @@ module.exports = {
       flex: {
         2: "2 2 0%",
       },
+      minWidth: {
+        8: "2rem",
+      },
+      minHeight: {
+        8: "2rem",
+      },
     },
   },
   variants: {

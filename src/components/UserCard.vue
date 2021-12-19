@@ -20,7 +20,7 @@
       <address class="flex items-center border-b border-gray-200">
         <a
           :href="`mailto:${user.email}`"
-          class="hover:bg-yellow-100 hover:fill-current py-2 px-5 flex-1 border-r border-gray-200"
+          class="hover:bg-yellow-100 py-2 px-5 flex-1 border-r border-gray-200"
           ><Icon
             name="mail"
             width="22px"

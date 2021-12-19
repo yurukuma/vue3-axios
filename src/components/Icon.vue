@@ -21,7 +21,7 @@ export default {
     },
     color: {
       type: String,
-      // default: "currentColor",
+      default: "currentColor",
     },
     width: {
       type: String,
