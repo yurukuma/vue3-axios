@@ -33,13 +33,6 @@
       :currentPage="currentPage"
       @setPage="directPage"
     />
-    <!-- <PaginationTest
-      class="mt-4"
-      :total="total"
-      :perPage="perPage"
-      :currentPage="currentPage"
-      @setPage="directPage"
-    /> -->
     <Teleport to="#app" v-if="isModalOpen">
       <Modal @hide="toggleModal">
         <template #context>
