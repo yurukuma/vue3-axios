@@ -1,5 +1,5 @@
 <template>
-  <ul class="shadow m-3">
+  <ul class="shadow m-3 min-w-314">
     <li
       v-for="user in userList"
       :key="user.login.uuid"

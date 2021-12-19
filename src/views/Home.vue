@@ -17,15 +17,12 @@
         <Icon name="th-list" width="30px" height="30px" color="#1B2431" />
       </li>
     </ul>
-    <!-- TODO:resolve 資料render速度不一 -->
-    <!-- <template v-if="gotUserData"> -->
     <component
       :is="currentComponent"
-      :userList="userInfoList"
+      :userList="currentData"
       @openModal="toggleModal"
       @modalContext="modalContext"
     />
-    <!-- </template> -->
     <Pagination
       class="mt-4"
       :total="total"
@@ -81,8 +78,6 @@
         </template>
       </Modal>
     </Teleport>
-    <!-- overlay -->
-    <!-- TODO:extract component -->
     <div
       v-show="isModalOpen"
       class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-60"
@@ -93,16 +88,13 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
-import { ref, onMounted, computed } from "vue";
-import { useRouter } from "vue-router";
-// import { useRouter, useRoute } from "vue-router";
+import { ref, reactive, onMounted, computed, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import UserList from "@/components/UserList.vue";
 import Icon from "@/components/Icon.vue";
 import CardContainer from "@/components/Home/CardContainer.vue";
 import Modal from "@/components/Modal.vue";
 import Pagination from "@/components/Pagination.vue";
-
 // services
 import { getUser } from "@/services/UserInfo.js";
 // utility
@@ -111,8 +103,6 @@ import { convertToDateString } from "@/utility/dateFormatter.js";
 export default {
   name: "Home",
   components: {
-    // HelloWorld,
-    // UserCard,
     UserList,
     CardContainer,
     Icon,
@@ -125,22 +115,19 @@ export default {
     let gotUserData = ref(false);
     let isModalOpen = ref(false);
     let modalData = ref({});
+    let userDataStore = reactive({});
     const total = 3010; //資料總數3010
     const perPage = 30;
     let currentPage = ref(1); // 當前頁碼
     const router = useRouter();
-    // const route = useRoute();
+    const route = useRoute();
     // call api get data
     const getUserInfo = () => {
-      getUser(perPage)
-        .then((res) => {
-          userInfoList.value = res;
-          gotUserData.value = true;
-          console.log(userInfoList.value);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      getUser(perPage).then((res) => {
+        userInfoList.value = res;
+        gotUserData.value = true;
+        userDataStore[currentPage.value] = res;
+      });
     };
     const changeViewMode = (mode) => {
       currentComponent.value = mode;
@@ -153,15 +140,31 @@ export default {
     };
     const directPage = (pageNum) => {
       currentPage.value = pageNum;
+      changePageRoute();
+    };
+    const changePageRoute = () => {
+      router.push({ name: "Home", query: { page: currentPage.value } });
     };
     // computed
+    const currentData = computed(() => {
+      return userDataStore[currentPage.value];
+    });
     const isCardMode = computed(() => {
       return currentComponent.value === "CardContainer";
     });
+    watch(
+      () => route.query.page,
+      (newPage) => {
+        if (userDataStore?.[newPage]) return;
+        getUserInfo();
+      }
+    );
+    // hook
     onMounted(() => {
-      router.push({ name: "Home", query: { page: currentPage.value } });
+      changePageRoute();
       getUserInfo();
     });
+
     return {
       userInfoList,
       gotUserData,
@@ -177,6 +180,8 @@ export default {
       perPage,
       total,
       directPage,
+      userDataStore,
+      currentData,
     };
   },
 };
