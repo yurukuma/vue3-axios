@@ -15,9 +15,10 @@ const getUser = (count = 30) => {
     //     reject("系統忙碌中，請稍後再試!");
     //   });
     $axios
-    .get(`https://randomuser.me/api/?results=${count}`)
+    .get(`/api/?results=${count}`)
     .then((res) => {
       if (res?.results) {
+        console.log("call api");
         resolve(res.results);
       } else {
         res?.error ? reject("服務維護中") : reject("系統忙碌中，請稍後再試!");
