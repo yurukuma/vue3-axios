@@ -3,7 +3,7 @@ import { $axios } from "@/api/http";
 const getUser = (count = 30) => {
   return new Promise((resolve, reject) => {
     $axios
-      .get(`/api/?results=${count}`)
+      .get(`${process.env.VUE_APP_API_ENDPOINT}/?results=${count}`)
       .then((res) => {
         if (res?.results) {
           resolve(res.results);
