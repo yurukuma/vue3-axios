@@ -158,6 +158,7 @@ export default {
       (newPage) => {
         if (userDataStore?.[newPage]) return;
         getUserInfo();
+        console.log("watch");
       }
     );
     // hook

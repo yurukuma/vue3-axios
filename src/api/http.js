@@ -10,6 +10,7 @@ const errorHandler = (error) => {
 };
 
 const $axios = axios.create({
+  baseURL: "http://localhost:81/api",
   timeout: DEFAULT_TIMEOUT,
   withCredentials: true,
 });

@@ -1,0 +1,21 @@
+# version: '3.7'
+
+# services:
+
+#   app-prod:
+#     container_name: app-prod
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - '81:81'
+version: '3.7'
+
+services:
+  express:
+    container_name: express
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '81:81'
