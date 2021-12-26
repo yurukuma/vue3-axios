@@ -10,7 +10,7 @@ const errorHandler = (error) => {
 };
 
 const $axios = axios.create({
-  baseURL: "http://localhost:81/api",
+  baseURL: process.env.VUE_APP_API_ENDPOINT,
   timeout: DEFAULT_TIMEOUT,
   withCredentials: true,
 });
