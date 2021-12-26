@@ -9,5 +9,5 @@ app.use(cors(corsOptions));
 app.use("/api", usersRouter);
 app.use(history());
 app.use(express.static(path.join(__dirname, "../dist")));
-app.listen(81, () => console.log("app listening on port 81!"));
+app.listen(process.env.PORT || 81);
 module.exports = app;
