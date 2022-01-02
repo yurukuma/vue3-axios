@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "format": "prettier --write \"src/**/*.{js,vue}\"",
-    "docker": "yarn build && docker build -t vue-express ."
+    "docker": "yarn build && docker build -t vue-express .",
+    "local_server": "nodemon server/app.js"
   },
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.17",
@@ -36,6 +37,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
+    "nodemon": "^2.0.15",
     "prettier": "^2.2.1",
     "svg-sprite-loader": "^6.0.11",
     "vue-cli-plugin-tailwind": "~2.2.17"

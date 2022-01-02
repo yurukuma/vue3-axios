@@ -1,21 +1,10 @@
-# version: '3.7'
-
-# services:
-
-#   app-prod:
-#     container_name: app-prod
-#     build:
-#       context: .
-#       dockerfile: Dockerfile
-#     ports:
-#       - '81:81'
 version: '3.7'
-
 services:
-  express:
-    container_name: express
+  express-vue:
+    container_name: express-vue
     build:
       context: .
       dockerfile: Dockerfile
+      target: product
     ports:
-      - '81:81'
+      - '3000:3000'

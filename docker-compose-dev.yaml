@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  vue-dev:
+    container_name: vue-dev
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev-client
+    command: sh -c "yarn run serve"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "8081:8081"
+  express-dev:
+    container_name: express-dev
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev-server
+    command: sh -c "yarn run local_server"
+    ports:
+      - "3000:3000"

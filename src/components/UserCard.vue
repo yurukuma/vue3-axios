@@ -85,7 +85,6 @@ export default {
     //   openModal,
     // };
     const openModal = (data) => {
-      console.log(data);
       context.emit("openModal");
       context.emit("modalContext", data);
     };

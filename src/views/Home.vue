@@ -124,7 +124,6 @@ export default {
     // call api get data
     const getUserInfo = () => {
       getUser(perPage).then((res) => {
-        console.log("home page call api");
         userInfoList.value = res;
         gotUserData.value = true;
         userDataStore[currentPage.value] = res;
@@ -158,7 +157,6 @@ export default {
       (newPage) => {
         if (userDataStore?.[newPage]) return;
         getUserInfo();
-        console.log("watch");
       }
     );
     // hook

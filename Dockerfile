@@ -1,18 +1,26 @@
-
-
-# Client App
-FROM node:lts-alpine as build-stage
+FROM node:14-alpine as base
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN yarn install
+
+# Client App deev
+FROM base as dev-client
 COPY . .
-RUN npm run build
+
+# Node server dev
+FROM base as dev-server
+COPY server ./server
+
+# Client App build
+FROM base as build-stage
+COPY . .
+RUN yarn run build
 
 # Node server
-FROM node:lts-alpine
+FROM node:14-alpine as product
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN yarn install
+RUN yarn install --production
 COPY server ./server
 COPY --from=build-stage /usr/src/app/dist ./dist
 CMD [ "node", "server/app.js" ]
