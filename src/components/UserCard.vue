@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <img
-        class="rounded-full mx-auto"
+        class="rounded-full mx-auto h-18 w-18"
         :src="user.picture.medium"
         alt="profile picture"
       />
