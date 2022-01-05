@@ -5,6 +5,7 @@ Demo: https://hello-frontier.herokuapp.com/home?page=1
 docker-compose -f docker-compose-dev.yaml up -d --build
 
 //serve in localhost:8081
+//如果不想安裝docker環境，yarn instal，yarn serve，再開另一個terminal，nodemon server/app.js
 ```
 
 ### Compiles and minifies for production
