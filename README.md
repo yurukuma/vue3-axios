@@ -1,5 +1,5 @@
 # hello-frontier
-Demo: https://hello-frontier.herokuapp.com/home?page=1
+
 ### Project setup for development
 ```
 docker-compose -f docker-compose-dev.yaml up -d --build
